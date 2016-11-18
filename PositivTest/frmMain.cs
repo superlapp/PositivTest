@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PositivTest
@@ -21,14 +14,20 @@ namespace PositivTest
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-
+            //
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach (string r in cw.Parse())
+            var list = cw.Parse();
+            if (list.Count != 0)
             {
-                listBox2.Items.Add(r);
+                foreach (string row in list)
+                {
+                    listBox1.Items.Add(row);
+                }
+                //
+                cw.WriteToXLS(list);
             }
         }
     }
