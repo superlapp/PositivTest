@@ -21,28 +21,38 @@ namespace PositivTest
             //
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ParseAsync();
+        }
+
+        private async void ParseAsync()
         {
             button1.Enabled = false;
             progressBar1.Style = ProgressBarStyle.Marquee;
+            listBox1.Items.Clear();
             //
-            var task = Task<List<string>>.Factory.StartNew(() => cw.Parse(Convert.ToInt32(pagesND.Value)));
-            await task;
-            var list = task.Result;
-            //
-            if (list.Count != 0)
+            try
             {
-                listBox1.Items.Clear();
-                foreach (string row in list)
-                {
-                    listBox1.Items.Add(row);
-                }
+                var task = Task<List<string>>.Factory.StartNew(() => cw.Parse(Convert.ToInt32(pagesND.Value)));
+                await task;
+                var list = task.Result;
                 //
-                cw.WriteToXLS(list);
+                if (list.Count != 0)
+                {
+                    listBox1.Items.AddRange(list.ToArray());
+                    cw.WriteToXLS(list);
+                }
             }
-            //
-            progressBar1.Style = ProgressBarStyle.Blocks;
-            button1.Enabled = true;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                button1.Enabled = true;
+            }
         }
     }
 }
