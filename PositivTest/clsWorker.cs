@@ -87,6 +87,7 @@ namespace PositivTest
                         System.Windows.Forms.Application.StartupPath +
                         "\\Выборка " + (fileCount.Length + 1).ToString() + ".xlsx";
                     xBook.SaveAs(fileName);
+                    xBook.Close();
                     //
                     excel.Quit();
                     //
