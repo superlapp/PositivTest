@@ -62,8 +62,6 @@ namespace PositivTest
             {
                 try
                 {
-                    //excel.Visible = true;
-                    //
                     Workbook xBook = excel.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                     Worksheet xSheet = (Worksheet)xBook.Worksheets[1];
                     //
